@@ -1,0 +1,54 @@
+
+class Patient:
+    def __init__(self, name, age, disease):
+        self.name = name
+        self.age = age
+        self.disease = disease
+
+    def display(self):
+        print("\nPatient Name:", self.name)
+        print("Age:", self.age)
+        print("Disease:", self.disease)
+
+class Hospital(Patient):
+
+    def save_record(self):
+        with open("patients.txt", "a") as file:
+            file.write(f"{self.name},{self.age},{self.disease}\n")
+        print("Record Saved Successfully!")
+
+    def show_records(self):
+        print("\n--- All Patient Records ---")
+        try:
+            with open("patients.txt", "r") as file:
+                print(file.read())
+        except FileNotFoundError:
+            print("No records found!")
+
+while True:
+    print("\n--- HOSPITAL MANAGEMENT SYSTEM ---")
+    print("1. Add Patient")
+    print("2. View Patients")
+    print("3. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        name = input("Enter Patient Name: ")
+        age = input("Enter Patient Age: ")
+        disease = input("Enter Disease: ")
+
+        p = Hospital(name, age, disease)
+        p.display()
+        p.save_record()
+
+    elif choice == "2":
+        p = Hospital("", "", "")
+        p.show_records()
+
+    elif choice == "3":
+        print("Thank You!")
+        break
+
+    else:
+        print("Invalid Choice!")
